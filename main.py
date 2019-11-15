@@ -41,5 +41,6 @@ print(url)
 #req = urllib.request.Request(url, data)
 response = urllib.request.urlopen(url, data)
 print(response)
-#for record in response :
-#   print(json.loads(record, object_hook=from_json))
+for record in response :
+   #print(json.loads(record, object_hook=from_json))
+   print(json.loads(record))
