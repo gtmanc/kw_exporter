@@ -37,6 +37,7 @@ def transcode(detail):
     last = len(history) - 1
     last_history = history[last]
     comment = last_history.get('comment')
+
     #print('Comment type = {t}'.format(t = type(comment)))
     #print('Comment = {t}'.format(t = comment))
     coded.update({"Comment":comment})
