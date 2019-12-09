@@ -1,5 +1,7 @@
 import urllib.request,json
 
+import configuration
+
 """
 Search all open issue in a project.
 Input
@@ -12,7 +14,7 @@ List of dict. Each dict in the list stres the basic information of an issue.
 """
 def search_open_issue(url, user, project, token):
     values = {"project": project, "user": user, "action": "search", "ltoken": token}
-    values["query"] = "build:any"
+    values["query"] = configuration.query
     
     data = urllib.parse.urlencode(values)
     #print('data = {d}'.format(d = data))
@@ -45,7 +47,7 @@ user: user name
 project: project name
 token: token needed for server uthenticaion
 Output:
-Dict which contain ll of the detail of an issue
+Dict which contain all of the detail of an issue
 """
 def issue_detail(url, user, project, token, id, xsync=None):
     values = {"user": user, "action": "issue_details", "project": project, "id": id}
@@ -69,3 +71,16 @@ def issue_detail(url, user, project, token, id, xsync=None):
     #    result.append(json.loads(record))
   
     return result
+
+
+
+def get_project_list(url, user, token):
+    values = {"user": user, "action": "projects", "ltoken": token}
+    data = urllib.parse.urlencode(values)
+    data = data.encode('ascii')
+    response = urllib.request.urlopen(url, data)
+    
+    #result = json.loads(response.read())
+    
+    print(response.read())
+    return 

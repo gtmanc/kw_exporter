@@ -4,6 +4,7 @@ import urllib.request
 import Retrieve
 import transcode
 import write_ws
+import configuration
 
 
 def getToken(host, port, user) :
@@ -16,24 +17,14 @@ def getToken(host, port, user) :
         return rd[3]
    ltokenFile.close()
 
-# main routine start
-server = "brookmanwang.altek.c.t"
-host = 'BrookmanWang'
-port = 8080
-""" TODO: This should be entered by the user"""
-user = 'jensonchin' #user = getpass.getuser()
-projects = {"WAVE3_CommsFW",
-            "WAVE3_JNI_ContinuaAgent_1",
-            "WAVE3_JNI_RCFrameworkLibrary_1",
-            "WAVE3_RCApp_ContinuaService",
-            "WAVE3_RCApp_EMWRService",
-            "WAVE3_RCApp_FirmwareUpdateChecker",
-            "WAVE3_RCApp_RCFrameworkLibrary",
-            "WAVE3_RCApp_RCLauncher",
-            "WAVE3_RCApp_RCSystemService",
-            "WAVE3_RCApp_ReminderService",
-            "WAVE3_RCApp_SoloMPumpService"
-}
+# ---- main routine start ----
+# load server configuraions
+server = configuration.server #"brookmanwang.altek.c.t"
+host = configuration.host #'BrookmanWang'
+port = configuration.port #8080
+user = configuration.user #'jensonchin' #user = getpass.getuser()
+projects = configuration.projects
+
 url = "http://%s:%d/review/api" % (server, port)
 
 loginToken = getToken(host, port, user)
@@ -43,6 +34,7 @@ loginToken = getToken(host, port, user)
 
 # Fill first row with the predefined names
 #print('Keys = {k}'.format(k = transcode.coded.keys()))
+
 keys = []
 for k in transcode.coded.keys():
    keys.append(k)
@@ -74,7 +66,7 @@ for pj in projects:
       row = row + 1
 
 
-wb.save("KW_Report.xlsx") #save it
+wb.save(configuration.name_report) #save it
 
 #history = detail.get('history')
 
