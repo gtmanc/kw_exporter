@@ -60,8 +60,8 @@ def issue_detail(url, user, project, token, id, xsync=None):
     data = data.encode('ascii')
     #print(url)
     #req = urllib.request.Request(url, data)
-    response = urllib.request.urlopen(url, data)
-    result = json.loads(response.read())
+    response = urllib.request.urlopen(url, data) 
+    result = json.loads(response.read()) #response.read() returns bytes
     #print(result)
     #print('type = {t}'.format(t = type(result)))
 
@@ -72,15 +72,33 @@ def issue_detail(url, user, project, token, id, xsync=None):
   
     return result
 
-
-
+"""
+Get project list.
+Input
+url: url
+user: user name
+token: token needed for server uthenticaion
+Output:
+Dict list which contains detail of all projects
+"""
 def get_project_list(url, user, token):
     values = {"user": user, "action": "projects", "ltoken": token}
+
     data = urllib.parse.urlencode(values)
     data = data.encode('ascii')
-    response = urllib.request.urlopen(url, data)
+    response = urllib.request.urlopen(url, data) 
     
-    #result = json.loads(response.read())
+    r_bytes = response.read() #response.read() returns bytes
+
+    #The bytes carries out the multi Json objects. It's easier to split those Jsons in string.
+    r_string = r_bytes.decode("utf-8")
+    r_list = r_string.splitlines()
+
+    result = []
+    for j in range(len(r_list)):
+        result.append(json.loads(r_list[j]))
     
-    print(response.read())
-    return 
+    #print('Search result: {r}'.format(r = r_list[0].find('WAVE3')))
+    #print('type = {t}'.format(t = type(result[0])))
+    #print(result)
+    return  result

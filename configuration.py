@@ -5,7 +5,11 @@ port = 8080
 
 user = 'jensonchin' #user = getpass.getuser()
 
-
+#String used to determine which project is interested
+#operation "AND" is used. e.g. A project contains both will be ignored
+pid_include = 'WAVE3'       #Project contains this string will be added to the list
+pid_exclude = 'Obsolete'    
+"""
 projects = {"WAVE3_CommsFW",
             "WAVE3_JNI_ContinuaAgent_1",
             "WAVE3_JNI_RCFrameworkLibrary_1",
@@ -18,7 +22,7 @@ projects = {"WAVE3_CommsFW",
             "WAVE3_RCApp_ReminderService",
             "WAVE3_RCApp_SoloMPumpService"
 }
-
+"""
 name_report = "KW_Report.xlsx"
 
 # Determine the query
