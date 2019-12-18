@@ -43,3 +43,24 @@ def transcode(detail):
     coded.update({"Comment":comment})
     #print(coded)
     return coded
+
+"""
+
+Select project according to the specified IDs (string)
+Input:
+list:   all available projects in server 
+id_incl:string. A project contains this string will be added to the list 
+id_excl: A project contains this string will NOT be added to the list
+Note: operation "AND" is used. e.g. A project contains both will be ignored
+Output:
+project list in string
+"""
+def project_list(list, id_incl, id_excl):
+    pj_name_list = []
+    
+    for i in range(len(list)):
+        name = list[i].get('name')
+        if name.find(id_incl) >= 0 and name.find(id_excl) < 0:
+            pj_name_list.append(name)
+
+    return pj_name_list

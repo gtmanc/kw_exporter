@@ -23,9 +23,11 @@ server = configuration.server #"brookmanwang.altek.c.t"
 host = configuration.host #'BrookmanWang'
 port = configuration.port #8080
 user = configuration.user #'jensonchin' #user = getpass.getuser()
-projects = configuration.projects
 
 url = "http://%s:%d/review/api" % (server, port)
+
+#projects = configuration.projects
+
 
 loginToken = getToken(host, port, user)
 #if loginToken is not None :
@@ -41,6 +43,11 @@ for k in transcode.coded.keys():
 #wb = write_ws.init(keys)
 wb = write_ws.create_wb()
 
+#Get project list according to the configuration
+project_list = Retrieve.get_project_list(url, user, loginToken)
+projects = transcode.project_list(project_list, configuration.pid_include, configuration.pid_exclude)
+
+# main control loop
 for pj in projects:
    print("Project = {p}".format(p = pj))
    # Get an overview for all open issues
