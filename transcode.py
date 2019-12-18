@@ -43,3 +43,13 @@ def transcode(detail):
     coded.update({"Comment":comment})
     #print(coded)
     return coded
+
+def transcode_project_list(list, prefix):
+    pj_name_list = []
+    
+    for i in range(len(list)):
+        name = list[i].get('name')
+        if name.find(prefix) >= 0:
+            pj_name_list.append(name)
+
+    return pj_name_list
