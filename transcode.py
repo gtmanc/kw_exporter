@@ -32,15 +32,17 @@ def transcode(detail):
     coded.update({"state":    detail.get('state')})    
     coded.update({"status":   detail.get('status')})    
 
-    #Only the last comment in history is intereted
+    #Only the newest comment in history is intereted
+    #Be careful, a history may contin empty comment. We have to find a good comment backward.
+    #A history will be added to history list by klocwork server only if the status is changed
     history = detail.get('history') #history is list of dict
-    print('history: {h}'.format(h = history))
-    last = len(history) - 1
-    print(last)
-    last_history = history[last]
-    print('last history: {h}'.format(h = last_history))
-    comment = last_history.get('comment')
-
+    #print('history: {h}'.format(h = history))
+    for h in history:
+        comment = h.get('comment')
+        if len(comment) > 0:
+            break
+        print('empty comment!')
+    #print('Comment length= {t}'.format(t = len(comment)))
     #print('Comment type = {t}'.format(t = type(comment)))
     #print('Comment = {t}'.format(t = comment))
     coded.update({"Comment":comment})
@@ -48,7 +50,6 @@ def transcode(detail):
     return coded
 
 """
-
 Select project according to the specified IDs (string)
 Input:
 list:   all available projects in server 
