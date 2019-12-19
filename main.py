@@ -45,8 +45,9 @@ wb = write_ws.create_wb()
 
 #Get project list according to the configuration
 project_list = Retrieve.get_project_list(url, user, loginToken)
-projects = transcode.project_list(project_list, configuration.pid_include, configuration.pid_exclude)
-
+#projects = transcode.project_list(project_list, configuration.pid_include, configuration.pid_exclude)
+projects = []
+projects.append("WAVE3_RCApp_ContinuaService")
 # main control loop
 for pj in projects:
    print("Project = {p}".format(p = pj))
