@@ -34,8 +34,11 @@ def transcode(detail):
 
     #Only the last comment in history is intereted
     history = detail.get('history') #history is list of dict
+    print('history: {h}'.format(h = history))
     last = len(history) - 1
+    print(last)
     last_history = history[last]
+    print('last history: {h}'.format(h = last_history))
     comment = last_history.get('comment')
 
     #print('Comment type = {t}'.format(t = type(comment)))
